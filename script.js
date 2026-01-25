@@ -463,11 +463,11 @@ function createPeriodicTable() {
         
         // SEPARAR LANTHANIDES (Ceri i Holmi)
         if (element.number === 58) { // Ceri
-            gridColumn = 6;
+            gridColumn = 5;
             gridRow = 9;
         }
         if (element.number === 67) { // Holmi
-            gridColumn = 15;
+            gridColumn = 14;
             gridRow = 9;
         }
         
@@ -593,4 +593,5 @@ function showElementDetails(element) {
     
     // Mostrar la fitxa
     modal.style.display = 'block';
+
 }
