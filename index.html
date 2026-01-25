@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elements Inusuals - Taula Periòdica Interactiva</title>
+    <link rel="stylesheet" href="tdr_anas_style.css">
+</head>
+<body>
+    <header>
+        <h1>Elements Químics Inusuals</h1>
+        <p>Una exploració interactiva dels elements més inusuals de la taula periòdica</p>
+    </header>
+
+    <main>
+        <div class="controls">
+            <button class="filter-btn active" data-filter="all">
+                <span class="icon">⚛️</span> Tots els Elements
+            </button>
+            <button class="filter-btn" data-filter="medicina">
+                <span class="icon">🏥</span> Medicina
+            </button>
+            <button class="filter-btn" data-filter="tecnologia">
+                <span class="icon">💻</span> Tecnologia
+            </button>
+            <button class="filter-btn" data-filter="industrial">
+                <span class="icon">🏭</span> Ús Industrial
+            </button>
+            <button class="filter-btn" data-filter="sintetic">
+                <span class="icon">🧪</span> Sintètic
+            </button>
+        </div>
+
+        <div class="periodic-table-container">
+            <div class="periodic-table">
+                <!-- Generats en JavaScript -->
+            </div>
+        </div>
+
+        <div class="element-modal" id="elementModal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div class="element-header">
+                    <h2 id="elementName"></h2>
+                    <div class="element-symbol" id="elementSymbol"></div>
+                </div>
+                <div class="element-details">
+                    <div class="basic-info">
+                        <h3>📊 Informació Bàsica</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">Nombre atòmic:</span>
+                                <span id="atomicNumber"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Massa atòmica:</span>
+                                <span id="atomicMass"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Grup i Període:</span>
+                                <span id="groupPeriod"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Bloc:</span>
+                                <span id="block"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Sèrie química:</span>
+                                <span id="chemicalSeries"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Configuració electrònica:</span>
+                                <span id="electronConfig"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="physical-properties">
+                        <h3>⚖️ Propietats Físiques</h3>
+                        <div class="properties-grid">
+                            <div class="info-item">
+                                <span class="label">Estat a 20°C:</span>
+                                <span id="state"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Punt de fusió:</span>
+                                <span id="meltingPoint"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Punt d'ebullició:</span>
+                                <span id="boilingPoint"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Densitat:</span>
+                                <span id="density"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Color:</span>
+                                <span id="color"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Duresa (Mohs):</span>
+                                <span id="hardness"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="electronic-properties">
+                        <h3>⚛️ Propietats Electròniques</h3>
+                        <div class="properties-grid">
+                            <div class="info-item">
+                                <span class="label">Electronegativitat:</span>
+                                <span id="electronegativity"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Estats d'oxidació:</span>
+                                <span id="oxidationStates"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Radi atòmic:</span>
+                                <span id="atomicRadius"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Conductivitat elèctrica:</span>
+                                <span id="electricalConductivity"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="applications">
+                        <h3>🔬 Aplicacions Principals</h3>
+                        <ul id="applicationsList"></ul>
+                    </div>
+
+                    <div class="curiosities">
+                        <h3>💡 Curiositats</h3>
+                        <ul id="curiositiesList"></ul>
+                    </div>
+
+                    <div class="discovery">
+                        <h3>📚 Descobriment</h3>
+                        <p id="discoveryInfo"></p>
+                        <p id="originName"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Treball de Recerca - Elements Inusuals de la Taula Periòdica</p>
+        <p>&copy; 2025 Anas Baazzy Benbya. Tots els drets reservats.</p>
+        <p>Batxillerat 2024-2026</p>
+    </footer>
+
+    <script src="tdr_anas_script.js"></script>
+</body>
+</html>
