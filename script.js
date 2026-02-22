@@ -415,7 +415,7 @@ const elementsData = [
     }
 ];
 
-// Inicialització de taula
+// Inicialització
 document.addEventListener('DOMContentLoaded', function() {
     createPeriodicTable();
     setupFilterButtons();
@@ -425,10 +425,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function createPeriodicTable() {
     const tableContainer = document.querySelector('.periodic-table');
     
-    // Netejar el contenidor primer
     tableContainer.innerHTML = '';
     
-    // Afegir número grups (1-18 adalt)
+    // Números de grup (1-18)
     for (let group = 1; group <= 18; group++) {
         const groupLabel = document.createElement('div');
         groupLabel.className = 'group-label';
@@ -438,7 +437,7 @@ function createPeriodicTable() {
         tableContainer.appendChild(groupLabel);
     }
     
-    // Afegir número períodes (1-7 esquerra)
+    // Números de període (1-7)
     for (let period = 1; period <= 7; period++) {
         const periodLabel = document.createElement('div');
         periodLabel.className = 'period-label';
@@ -448,20 +447,19 @@ function createPeriodicTable() {
         tableContainer.appendChild(periodLabel);
     }
     
-    // Afegir els elements a la taula
+    // Col·locar els elements
     elementsData.forEach(element => {
         const elementCell = document.createElement('div');
-        elementCell.className = `element bloc-${element.bloc}`;
+        elementCell.className = 'element bloc-' + element.bloc;
         elementCell.dataset.number = element.number;
-        elementCell.innerHTML = `
-            <div class="element-symbol">${element.symbol}</div>
-            <div class="element-number">${element.number}</div>
-        `;
+        elementCell.innerHTML =
+            '<div class="element-symbol">' + element.symbol + '</div>' +
+            '<div class="element-number">' + element.number + '</div>';
         
         let gridColumn = element.group + 1;
         let gridRow = element.period + 1;
         
-        // SEPARAR LANTHANIDES (Ceri i Holmi)
+        // Lantànids en fila separada
         if (element.number === 58) { // Ceri
             gridColumn = 5;
             gridRow = 9;
@@ -474,7 +472,9 @@ function createPeriodicTable() {
         elementCell.style.gridColumn = gridColumn;
         elementCell.style.gridRow = gridRow;
         
-        elementCell.addEventListener('click', () => showElementDetails(element));
+        elementCell.addEventListener('click', function() {
+            showElementDetails(element);
+        });
         tableContainer.appendChild(elementCell);
     });
 }
@@ -482,27 +482,31 @@ function createPeriodicTable() {
 function setupFilterButtons() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     
-    filterButtons.forEach(button => {
+    filterButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            // treu "active" de tots
-            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Treure "active" de tots
+            filterButtons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
             
-            // posa "active" al clicat
+            // Posar "active" al clicat
             this.classList.add('active');
             
-            const filter = this.dataset.filter; // all, medicina, tecnologia...
+            var filter = this.dataset.filter;
             
-            document.querySelectorAll('.element').forEach(el => {
-                const number = el.dataset.number;
-                const element = elementsData.find(e => e.number == number);
+            document.querySelectorAll('.element').forEach(function(el) {
+                var number = el.dataset.number;
+                var elementData = elementsData.find(function(e) {
+                    return e.number == number;
+                });
                 
-                if (filter === "all") {
-                    el.classList.remove("hidden");
+                if (filter === 'all') {
+                    el.classList.remove('hidden');
                 } else {
-                    if (element.categories.includes(filter)) {
-                        el.classList.remove("hidden");
+                    if (elementData.categories.includes(filter)) {
+                        el.classList.remove('hidden');
                     } else {
-                        el.classList.add("hidden");
+                        el.classList.add('hidden');
                     }
                 }
             });
@@ -510,54 +514,42 @@ function setupFilterButtons() {
     });
 }
 
-function filterElements(filter) {
-    const elements = document.querySelectorAll('.element:not(.empty)');
-    
-    elements.forEach(element => {
-        const elementNumber = parseInt(element.dataset.number);
-        const elementData = elementsData.find(e => e.number === elementNumber);
-        
-        if (filter === 'all' || elementData.categories.includes(filter)) {
-            element.classList.remove('hidden');
-        } else {
-            element.classList.add('hidden');
-        }
-    });
-}
-
 function setupModal() {
-    const modal = document.getElementById('elementModal');
-    const closeBtn = document.querySelector('.close-btn');
+    var modal = document.getElementById('elementModal');
+    var closeBtn = document.querySelector('.close-btn');
     
-    closeBtn.addEventListener('click', () => {
+    // Tancar amb la X
+    closeBtn.addEventListener('click', function() {
         modal.style.display = 'none';
     });
     
-    // Quan obris la modal
-    modal.classList.add("show");
-
-    // Quan la tanquis
-    modal.classList.remove("show");
-
-    window.addEventListener('click', (event) => {
+    // Tancar clicant fora del contingut
+    window.addEventListener('click', function(event) {
         if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    // Tancar amb Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
             modal.style.display = 'none';
         }
     });
 }
 
 function showElementDetails(element) {
-    const modal = document.getElementById('elementModal');
-    const blocClass = `bloc-${element.bloc}`;
+    var modal = document.getElementById('elementModal');
+    var blocClass = 'bloc-' + element.bloc;
     
-    // Actualitzar el contingut de la fitxa
+    // Omplir la informació
     document.getElementById('elementName').textContent = element.name;
     document.getElementById('elementSymbol').textContent = element.symbol;
-    document.getElementById('elementSymbol').className = `element-symbol ${blocClass}`;
+    document.getElementById('elementSymbol').className = 'element-symbol ' + blocClass;
     document.getElementById('atomicNumber').textContent = element.number;
     document.getElementById('atomicMass').textContent = element.atomicMass;
-    document.getElementById('groupPeriod').textContent = `Grup ${element.group}, Període ${element.period}`;
-    document.getElementById('block').textContent = `Bloc ${element.bloc.toUpperCase()}`;
+    document.getElementById('groupPeriod').textContent = 'Grup ' + element.group + ', Període ' + element.period;
+    document.getElementById('block').textContent = 'Bloc ' + element.bloc.toUpperCase();
     document.getElementById('chemicalSeries').textContent = element.chemicalSeries;
     document.getElementById('electronConfig').textContent = element.electronConfig;
     document.getElementById('state').textContent = element.state;
@@ -574,24 +566,23 @@ function showElementDetails(element) {
     document.getElementById('originName').textContent = element.originName;
     
     // Aplicacions
-    const applicationsList = document.getElementById('applicationsList');
+    var applicationsList = document.getElementById('applicationsList');
     applicationsList.innerHTML = '';
-    element.applications.forEach(app => {
-        const li = document.createElement('li');
+    element.applications.forEach(function(app) {
+        var li = document.createElement('li');
         li.textContent = app;
         applicationsList.appendChild(li);
     });
     
     // Curiositats
-    const curiositiesList = document.getElementById('curiositiesList');
+    var curiositiesList = document.getElementById('curiositiesList');
     curiositiesList.innerHTML = '';
-    element.curiosities.forEach(curio => {
-        const li = document.createElement('li');
+    element.curiosities.forEach(function(curio) {
+        var li = document.createElement('li');
         li.textContent = curio;
         curiositiesList.appendChild(li);
     });
     
-    // Mostrar la fitxa
+    // Mostrar modal
     modal.style.display = 'block';
-
 }
